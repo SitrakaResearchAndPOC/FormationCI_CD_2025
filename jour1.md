@@ -1,3 +1,29 @@
+# Infrastructure
+```
+ssh root@45.79.212.220
+cluster1
+Lamp$$205909$$
+```
+```
+ssh root@192.155.92.35
+cluster2
+Lamp$$205909$$
+```
+```
+ssh root@192.155.92.55
+cluster3
+Lamp$$205909$$
+```
+```
+ssh root@192.155.92.76
+cluster4
+Lamp$$205909$$
+```
+
+
+
+
+
 ## Git simple python add actions 
 
 ```
