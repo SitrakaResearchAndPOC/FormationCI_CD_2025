@@ -1,3 +1,8 @@
+Generate key ssh before : 
+```
+ssh-keygen -t rsa -b 4096 -C "ton-email@example.com"
+```
+
 My TOKEN : 
 Regener votre token :
 ```
@@ -7,7 +12,7 @@ https://github.com/settings/personal-access-tokens
 SitrakaResearchAndPOC
 ```
 ```
-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
+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
 ```
 
 ## Create github
