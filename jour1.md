@@ -372,6 +372,41 @@ Pas d'isolation réseau </br>
 pas d'ip de conteneur </br>
 ports uniques </br>
 
+## variable d'environnement 
+Lister les images via docker image ls
+```
+docker image ls
+```
+Pour avoir un tty, il faut toujours le mode detaché! </br>
+Pour le variable d'environnement, il est possible d'utiliser --env ou -e </br>
+```
+docker run -tid --name testenv --env MYVARIABLE="123456" ubuntu:latest
+```
+```
+docker ps
+```
+Pour rendre dans le conteneur, l'option exec
+```
+docker exec -ti testenv sh
+```
+OU 
+```
+docker exec -ti testenv bash
+```
+utiliser la commande env
+```
+env
+```
+```
+echo $MYVARIABLE
+```
+```
+ps
+```
+En combinant les deux directement :
+```
+docker exec -ti testenv env
+```
 
 ## Git simple python add actions 
 
