@@ -407,6 +407,130 @@ En combinant les deux directement :
 ```
 docker exec -ti testenv env
 ```
+## DockerFile
+## Correction exercice 2 : dans slide : Dockerfile
+* Création de répértoire de travail
+</br>
+POUR EVITER ERREUR : exec /home/docker/script/service_start.sh: no such file or directory</br>
+</br>
+AJOUTER notepad++ dans variable environnement/PATH de windows </br>
+UTILISER notepad++ pour editer les codes et changer en UNIX LF et non Windows CRLF (en bas de notepad++) </br>
+
+```
+mkdir nginx-ubuntu
+```
+```
+cd nginx-ubuntu
+```
+
+* Création de Dockerfile
+
+```
+nano Dockerfile
+```
+```
+FROM ubuntu
+MAINTAINER Josue R <josue.ratovondrahona@esti.mg>
+
+RUN apt-get update && apt-get install nginx -y
+COPY default /etc/nginx/sites-enabled/default
+COPY index.html /var/www/html/index.html
+COPY service_start.sh /home/docker/script/service_start.sh
+RUN chmod +x /home/docker/script/service_start.sh
+ENTRYPOINT ["/home/docker/script/service_start.sh"]
+
+WORKDIR /home/docker
+```
+Tapez ctrl+x puis y -> entrer
+* création du code html
+
+```
+nano index.html
+```
+```
+<html>
+	<title>Test Dockerfile</title>
+	<body>
+		<center><b>Test Dockerfile</b></center>
+	</body>
+</html >	
+```
+Tapez ctrl+x puis y -> entrer
+* création de fichier de configuration default de nginx
+
+```
+nano default
+```
+```
+server {
+    listen 2080 default_server;
+    listen [::]:2080 default_server;
+
+    root /var/www/html;
+    index index.html index.htm;
+
+    server_name _;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+```
+Tapez ctrl+x puis y -> entrer
+* création de script de demarrage
+
+```
+nano service_start.sh 
+```
+SANS MODE DETACHE
+```
+#!/bin/bash
+echo LANCEMENT DE SERVEUR NGINX
+nginx -g 'daemon off;'
+```
+Tapez ctrl+x puis y -> entrer
+```
+docker build -t viveticimg .
+```
+```
+docker run -it --name viveticimg1 -p 8080:2080 viveticimg
+```
+RAFRAICHIR locahost:8080
+```
+exit
+```
+```
+cd ..
+```
+
+OU AVEC MODE DETACHE
+```
+#!/bin/bash
+echo "LANCEMENT DU SERVEUR NGINX"
+
+# Lancer nginx en arrière-plan
+service nginx start
+
+# Ouvrir un shell interactif pour garder le conteneur actif
+/bin/bash
+```
+Tapez ctrl+x puis y -> entrer
+```
+docker build -t viveticimg .
+```
+```
+docker run -itd --name viveticimg1 -p 8080:2080 viveticimg
+```
+RAFRAICHIR locahost:8080
+```
+docker exec -it  viveticimg1 bash
+```
+```
+exit
+```
+```
+cd ..
+```
 
 ## Git simple python add actions 
 
