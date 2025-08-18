@@ -56,7 +56,10 @@ git push -u origin main
 ```
 Pipeline 1 : 
 # This workflow will build a Java project with Gradle
-# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
+# For more information see: 
+
+https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
+
 ```
 name: Java CI with Gradle
 
@@ -101,7 +104,7 @@ jobs:
     runs-on: ${{matrix.os}}
     
     strategy:
-        matrix:
+      matrix:
         os: [ubuntu-latest, windows-latest, macOS-latest]
     
     steps:
@@ -117,8 +120,6 @@ jobs:
 
     - name: Build with Gradle
       run: ./gradlew build
-
-
 ```
 
 
