@@ -162,7 +162,26 @@ Entrer sur le navigateur :
 ```
 localhost:8080
 ```
+## DEV with docker
+```
+docker run -itd --name serveur_nginx -p 8000:80 
+nginx
+```
+```
+docker exec -it serveur_nginx bash
+```
+```
+cat /usr/share/nginx/html/index.html
+```
+Les deux commandes peuvent être simplifés par : 
+```
+docker exec -it serveur_nginx cat /usr/share/nginx/html/index.html
+```
 
+```
+docker run -itd --name serveur_nginx -p 8000:80 
+-v .\index.html:/usr/share/nginx/html/index.html nginx
+```
 
 
 
