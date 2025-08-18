@@ -7,7 +7,7 @@ https://github.com/settings/personal-access-tokens
 SitrakaResearchAndPOC
 ```
 ```
-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
+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
 ```
 
 ## Create github
