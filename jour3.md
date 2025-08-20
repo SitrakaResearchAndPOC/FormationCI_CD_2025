@@ -12,6 +12,10 @@ ls
 apt-get update && apt-get install -y make git
 ```
 ```
+apt install build-essential python3-dev
+```
+
+```
 apt install python3 python-is-python3
 ```
 ```
@@ -33,9 +37,19 @@ pip install "Werkzeug<3.0"
 sudo apt-get install gcc python3-dev
 ```
 ```
+pip install --upgrade pip
+```
+```
+pip install --upgrade pytest setuptools
+```
+```
 pip install "pytest>=7.0.0"
 ```
 ```
 make test
+
+
+
+
 ```
 
