@@ -1,6 +1,6 @@
 # APP Python
 ```
-clone https://gitlab.com/sitraka.rakotondramanana/gitlab-cicd-crash-course.git
+git clone https://gitlab.com/sitraka.rakotondramanana/gitlab-cicd-crash-course.git
 ```
 ```  
 cd gitlab-cicd-crash-course/
