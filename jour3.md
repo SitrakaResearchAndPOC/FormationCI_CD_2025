@@ -33,9 +33,6 @@ pip install "Werkzeug<3.0"
 sudo apt-get install gcc python3-dev
 ```
 ```
-make test
-```
-```
 pip install "pytest>=7.0.0"
 ```
 ```
