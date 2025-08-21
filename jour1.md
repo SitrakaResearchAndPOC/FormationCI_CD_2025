@@ -25,6 +25,12 @@ test_python
 ssh root@139.177.206.42
 Lamp$$205909$$
 ```
+```
+test_python-unbuntu-22.04
+ssh root@139.177.206.172
+Lamp$$205909$$
+```
+
 
 ## Commande de base docker
 
