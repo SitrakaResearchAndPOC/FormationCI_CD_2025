@@ -20,6 +20,12 @@ cluster4
 Lamp$$205909$$
 ```
 
+```
+test_python
+ssh root@139.177.206.42
+Lamp$$205909$$
+```
+
 ## Commande de base docker
 
 # Exercice 2 : 
