@@ -1,6 +1,6 @@
 # Infrastructure
 ```
-ssh root@45.79.212.220
+ssh root@198.74.53.220
 cluster1
 Lamp$$205909$$
 ```
@@ -9,28 +9,6 @@ ssh root@192.155.92.35
 cluster2
 Lamp$$205909$$
 ```
-```
-ssh root@192.155.92.55
-cluster3
-Lamp$$205909$$
-```
-```
-ssh root@192.155.92.76
-cluster4
-Lamp$$205909$$
-```
-
-```
-test_python
-ssh root@139.177.206.42
-Lamp$$205909$$
-```
-```
-test_python-unbuntu-22.04
-ssh root@139.177.206.172
-Lamp$$205909$$
-```
-
 
 ## Commande de base docker
 
