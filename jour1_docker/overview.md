@@ -278,7 +278,6 @@ exit
 ```
 docker exec -it exo_python_ubuntu python3 hello.py
 ```
-```
 sauvegarder l'image :
 ```
 docker commit -m "exo python script" exo_python_ubuntu ubuntu_exo_python:latest
