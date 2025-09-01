@@ -33,8 +33,8 @@ nano hello.bash
 #!/bin/bash
 echo "bonjour les amis"
 ```
-```
 ctrl+X + Y entrée
+
 ```
 cat hello.bash
 ```
@@ -80,7 +80,6 @@ cat hello2.bash
 A l'interieur du conteneur : 
 ```
 bash hello2.bash
-```
 ```
 A l'exterieuer 
 ```
