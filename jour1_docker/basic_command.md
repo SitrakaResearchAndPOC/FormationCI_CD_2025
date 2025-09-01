@@ -506,20 +506,5 @@ docker exec -it  viveticimg1 bash
 ```
 exit
 ```
-```
 cd ..
-```
-
-```
-docker-compose 
-```
-```
-docker-compose
-```
-si non existant : 
-```
-apt update
-```
-```
-apt install docker-compose
 ```
