@@ -198,7 +198,6 @@ A l'interieur du conteneur
 ```
 sh hello2.sh
 ```
-```
 A l'exterieur du conteneur
 ```
 exit
