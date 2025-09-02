@@ -39,20 +39,82 @@ jobs:
 ```
 *test 3 
 ```
-name: My First Workflow
+name: My First Workflow v2
 
 on: push
 
 jobs:
-  first_job:
+  first_job_actions1:
     runs-on: ubuntu-latest
     steps:
-      - name: Welcome message
-        run: echo "My first Github Actions Job"
+    - name: Checkout Repo
+      uses: actions/checkout@v4
 
-      - name: List files
-        run: ls
+    - name: List and Read file
+      run: |
+        echo "My first Github Actions Job"
+        ls -ltra
+        cat README.md
+    - name: Generate ASCII Artwork
+      run: |
+        sudo apt update
+        sudo apt install cowsay
+        cowsay -f dragon "Run for cover, I am a DRAGON...RAWR" >> dragon.txt
+```
+* test 4 :
+```
+name: Generate ASCII Artwork
 
-      - name: Read file
-        run: cat README.md
+on: push
+
+jobs:
+  acti_job:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v4
+
+    - name: Install Cowsay Program
+      run: sudo apt-get install cowsay -y
+
+    - name: Execute Cowsay Command
+      run: cowsay -f dragon "Run for cover, I am a DRAGON...RAWR" >> dragon.txt
+
+    - name: Test File Exists
+      run: grep -i "dragon" dragon.txt
+
+    - name: Read File
+      run: cat dragon.txt
+
+    - name: Checkout Repo Files
+      run: ls
+```
+* test 5 : shell
+ascii-script.sh
+```
+#!/bin/sh
+sudo apt-get install cowsay -y
+cowsay -f dragon "Run for cover, I am a DRAGON....RAWR" >> dragon.txt
+grep -i "dragon" dragon.txt
+cat dragon.txt
+```
+```
+name: Generate ASCII Artwork
+
+on: push
+
+jobs:
+  ascii_job:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v4
+
+    - name: List Repo Files
+      run: ls -ltra
+
+    - name: Executing Shell Script
+      run: |
+        chmod +x ascii-script.sh
+        ./ascii-script.sh
 ```
