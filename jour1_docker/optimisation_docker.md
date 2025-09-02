@@ -1,13 +1,17 @@
-## Optimisation de taille de l'image de dockerfile
+# Optimisation de taille de l'image de dockerfile
+## Préparation
 ```
 git clone https://github.com/hymaia/handson-container.git
 ```
 ```
-cd handson-container
+cd handson-container/frontend
 ```
-
+## Etape 1
 ```
-FROM nginx
+cp -rf ../step1.Dockerfile ../frontend/
+```
+```
+FROM nginx:1.27.5
 
 # port à exposer pour accéder à l'application
 EXPOSE 80
@@ -34,9 +38,8 @@ RUN cp -r dist/* /usr/share/nginx/html
 CMD ["nginx", "-g", "daemon off;"]
 
 ```
-
 ```
- docker build -t cactus:step1 -f step1.Dockerfile .
+docker build -t cactus:step1 -f step1.Dockerfile .
 ```
 ```
 docker run -t -p 8080:80 cactus:step1
