@@ -89,6 +89,9 @@ docker run -t -p 8082:80 cactus:step2
 ```
 ## Etape3
 ```
+cp -rf ../step3.Dockerfile ../frontend/
+```
+```
 # Étape 1 : Build de l'application avec Node.js (image alpine)
 FROM node:18-alpine AS builder
 
@@ -119,6 +122,12 @@ EXPOSE 80
 
 # Commande par défaut pour lancer nginx
 CMD ["nginx", "-g", "daemon off;"]
-``` 
+```
+```
+docker build -t cactus:step1 -f step1.Dockerfile .
+```
+```
+docker run -t -p 8081:80 cactus:step1
+```
 
 
