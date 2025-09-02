@@ -42,10 +42,12 @@ CMD ["nginx", "-g", "daemon off;"]
 docker build -t cactus:step1 -f step1.Dockerfile .
 ```
 ```
-docker run -t -p 8080:80 cactus:step1
+docker run -t -p 8081:80 cactus:step1
 ```
 ## Etape2 
-
+```
+cp -rf ../step2.Dockerfile ../frontend/
+```
 ```
 FROM nginx:1.27-alpine
 
@@ -79,5 +81,44 @@ RUN cp -r dist/* /usr/share/nginx/html
 # Commande de lancement par défaut
 CMD ["nginx", "-g", "daemon off;"]
 ```
+```
+docker build -t cactus:step2 -f step2.Dockerfile .
+```
+```
+docker run -t -p 8082:80 cactus:step2
+```
+## Etape3
+```
+# Étape 1 : Build de l'application avec Node.js (image alpine)
+FROM node:18-alpine AS builder
+
+# Crée le dossier de travail
+WORKDIR /app
+
+# Copier les fichiers package.json / lock
+COPY package*.json ./
+
+# Installer les dépendances
+RUN npm install
+
+# Copier le reste du code source
+COPY . .
+
+# Construire l’application (Vite, React, Vue, etc.)
+RUN npm run build
+
+
+# Étape 2 : Image de production avec Nginx (Alpine)
+FROM nginx:1.27-alpine
+
+# Copier les fichiers compilés depuis l’étape de build vers le dossier nginx
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Exposer le port 80
+EXPOSE 80
+
+# Commande par défaut pour lancer nginx
+CMD ["nginx", "-g", "daemon off;"]
+``` 
 
 
