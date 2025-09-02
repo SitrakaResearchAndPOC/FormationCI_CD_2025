@@ -8,4 +8,4 @@ Comprehension de docker
 
 ## Jour2
 * [Optimdockerfile](https://github.com/SitrakaResearchAndPOC/FormationCI_CD_2025/blob/main/jour1_docker/optimisation_docker.md)
-* [GitActions]
+* [GitActions](https://github.com/SitrakaResearchAndPOC/FormationCI_CD_2025/blob/main/jour2_git_actions/elementaire.md)
