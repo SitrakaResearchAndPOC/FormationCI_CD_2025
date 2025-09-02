@@ -18,3 +18,41 @@ jobs:
       - name: Read file
         run: cat README.md
 ```
+* test2 
+```
+name: My First Workflow
+
+on: push
+
+jobs:
+  first_job:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v4
+
+    - name: List and Read file
+      run: |
+        echo "My first Github Actions Job"
+        ls -ltra
+        cat README.md
+```
+*test 3 
+```
+name: My First Workflow
+
+on: push
+
+jobs:
+  first_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Welcome message
+        run: echo "My first Github Actions Job"
+
+      - name: List files
+        run: ls
+
+      - name: Read file
+        run: cat README.md
+```
