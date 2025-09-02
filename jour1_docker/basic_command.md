@@ -391,6 +391,7 @@ docker exec -ti testenv env
 ## DockerFile
 ## Correction exercice 2 : dans slide : Dockerfile
 * Création de répértoire de travail
+SUR WINDOWS (ERREUR CLASSIQUE) : 
 </br>
 POUR EVITER ERREUR : exec /home/docker/script/service_start.sh: no such file or directory</br>
 </br>
