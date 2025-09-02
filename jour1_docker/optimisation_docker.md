@@ -7,23 +7,38 @@ cd handson-container
 ```
 
 ```
-FROM nginx:1.17.5
+FROM nginx
 
 # port à exposer pour accéder à l'application
 EXPOSE 80
 
-# on installe les outils nécessaire à la construction et à l'exécution
-RUN apt update && apt install -y npm nodejs nginx
+RUN    apt update && \
+    apt install -y npm nodejs && \
+    apt clean && rm -rf /var/lib/apt/lists/*
 
 # on se place dans un dossier de travail et on y copie tout le code de l'application
 WORKDIR /app
-COPY package* .
+COPY package* ./
+
+
+# Installer les dépendances node (vite inclus)
+RUN npm install
+# Copier tout le code source
+COPY . .
+
 
 # On construit l'application et on la déplace dans le bon dossier pour nginx
 RUN npm run build 
 RUN cp -r dist/* /usr/share/nginx/html
 
 CMD ["nginx", "-g", "daemon off;"]
+
 ```
 
+```
+ docker build -t cactus:step1 -f step1.Dockerfile .
+```
+```
+docker run -t -p 8080:80 cactus:step1
+```
 
