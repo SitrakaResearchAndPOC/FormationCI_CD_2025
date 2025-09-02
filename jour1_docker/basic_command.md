@@ -155,10 +155,13 @@ Les deux commandes peuvent être simplifés par :
 ```
 docker exec -it serveur_nginx cat /usr/share/nginx/html/index.html
 ```
-
+* Sur windows : 
 ```
-docker run -itd --name serveur_nginx -p 8000:80 
--v .\index.html:/usr/share/nginx/html/index.html nginx
+docker run -itd --name serveur_nginx -p 8000:80 -v .\index.html:/usr/share/nginx/html/index.html nginx
+```
+* Sur linux : 
+```
+docker run -itd --name servnginx -v ./index.html:/usr/share/nginx/html/index.html -p 8000:80 nginx
 ```
 
 ## Docker network 
