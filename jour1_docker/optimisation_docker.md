@@ -44,4 +44,40 @@ docker build -t cactus:step1 -f step1.Dockerfile .
 ```
 docker run -t -p 8080:80 cactus:step1
 ```
+## Etape2 
+
+```
+FROM nginx:1.27-alpine
+
+# Exposer le port HTTP
+EXPOSE 80
+
+# Définir l'environnement pour éviter les prompts
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Installer Node.js et npm dans l'image nginx:alpine
+RUN apk add --no-cache nodejs npm
+
+# Créer le dossier de travail
+WORKDIR /app
+
+# Copier les fichiers de dépendances
+COPY package*.json ./
+
+# Installer les dépendances
+RUN npm install
+
+# Copier le reste du code source
+COPY . .
+
+# Construire l'application (avec Vite ou autre)
+RUN npm run build
+
+# Copier les fichiers build dans le dossier HTML de Nginx
+RUN cp -r dist/* /usr/share/nginx/html
+
+# Commande de lancement par défaut
+CMD ["nginx", "-g", "daemon off;"]
+```
+
 
