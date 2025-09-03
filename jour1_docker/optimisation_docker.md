@@ -130,9 +130,15 @@ docker build -t cactus:step3 -f step3.Dockerfile .
 docker run -t -p 8081:80 cactus:step3
 ```
 # Docker compose 
+```
 docker-compose down --volumes --remove-orphans
+```
+```
 docker system prune -f
-docker system prune -f 
+```
+```
+docker build up -d
+```
 
 * Dockerfile du front
 ```
@@ -210,4 +216,99 @@ services:
     container_name: clickcat_redis
     ports:
       - "6379:6379"
+```
+* Tester API :
+```
+http://localhost:3000/api/use-redis
+```
+```
+http://localhost:3000/api/click
+```
+```
+http://localhost:3000/api/number
+```
+* Tester Front-End
+```
+http://localhost:3001
+```
+# Changer avec network
+
+```
+version: "3"
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: clickcat_frontend
+    ports:
+      - "3001:80"
+    depends_on:
+      - backend
+    networks:
+      - clickcat-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: clickcat_backend
+    ports:
+      - "3000:3000"
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - redis
+    networks:
+      - clickcat-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: clickcat_redis
+    ports:
+      - "6379:6379"
+    networks:
+      - clickcat-network
+
+networks:
+  clickcat-network:
+    driver: bridge
+```
+* Log de containers
+```
+docker-compose logs backend
+```
+```
+docker-compose logs frontend
+```
+```
+docker-compose logs redis
+```
+* Log du backend
+```
+docker-compose logs -f backend
+```
+OU
+```
+docker ps
+```
+```
+docker logs -f clickcat_backend
+```
+* Log du service
+```
+docker-compose logs -f
+```
+* Debug front-end et back-end
+```
+docker exec -it clickcat_backend sh
+```
+* Inspecter reseau :
+```
+docker network inspect clickcat-network
+```
+* surveiller reseau
+```
+sudo tcpdump -i docker0
 ```
