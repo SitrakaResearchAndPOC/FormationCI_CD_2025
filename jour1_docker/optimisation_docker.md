@@ -231,7 +231,7 @@ http://localhost:3000/api/number
 ```
 http://localhost:3001
 ```
-# Changer avec network
+# Docker compose avec reseau
 
 ```
 version: "3"
