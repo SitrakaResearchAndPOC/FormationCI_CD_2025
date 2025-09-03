@@ -81,7 +81,24 @@ deploy:
             docker run -dt -p 5000:5000 $IMAGE_NAME:$IMAGE_TAG"
 ```
 # Version python-3.11-slim
-Version latest : https://gitlab.com/Bigdawg3442/gitlab-cicd-crash-course-1.git
+Version latest : https://gitlab.com/Bigdawg3442/gitlab-cicd-crash-course-1.git </br>
+
+```
+ls
+```
+```
+cd gitlab-cicd-crash-course/
+```
+```
+ls
+```
+```
+docker build -t test .
+```
+```
+docker run -td -p 5000:5000 test
+```
+
 * Makefile
 ```
 # Used by `image`, `push` & `deploy` targets, override as required
@@ -225,21 +242,6 @@ build_image:
 ```
 
 
-```
-ls
-```
-```
-cd gitlab-cicd-crash-course/
-```
-```
-ls
-```
-```
-docker build -t test .
-```
-```
-docker run -td -p 5000:5000 test
-```
 
 * DockerFile
 
