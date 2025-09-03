@@ -124,10 +124,10 @@ EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
 ```
 ```
-docker build -t cactus:step1 -f step1.Dockerfile .
+docker build -t cactus:step3 -f step3.Dockerfile .
 ```
 ```
-docker run -t -p 8081:80 cactus:step1
+docker run -t -p 8081:80 cactus:step3
 ```
 
 
