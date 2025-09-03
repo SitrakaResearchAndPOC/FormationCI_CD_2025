@@ -1,0 +1,18 @@
+```
+git clone https://gitlab.com/thisalwijayakumara/gitlab-cicd-crash-course.git
+```
+```
+ls
+```
+```
+cd gitlab-cicd-crash-course/
+```
+```
+ls
+```
+```
+docker build -t test .
+```
+```
+docker run -td -p 5000:5000 test
+```
