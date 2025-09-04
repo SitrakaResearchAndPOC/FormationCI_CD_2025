@@ -110,6 +110,138 @@ Terminal clusterswarm1
 docker service update --image vdemeester/exquisite-words-java:v2  back
 ```
 Tape in navigator <ip_node_manager:800>
+
+## Docker stack : 
+```
+version: "3.8"
+
+networks:
+  exquisite:
+    driver: overlay
+    driver_opts:
+      encrypted: ""
+
+services:
+  mongo:
+    image: mongo:3.3.8
+    networks:
+      - exquisite
+    deploy:
+      placement:
+        constraints: [node.role == worker]
+      restart_policy:
+        condition: on-failure
+
+  back:
+    image: vdemeester/exquisite-words-java:v1
+    networks:
+      - exquisite
+    depends_on:
+      - mongo
+    environment:
+      - MONGO_HOST=mongo
+      - MONGO_PORT=27017
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          memory: 64M
+        reservations:
+          memory: 64M
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+
+  front:
+    image: vdemeester/exquisite-web:v1
+    ports:
+      - "800:80"
+    networks:
+      - exquisite
+    depends_on:
+      - back
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+```
+
+
+
+* Amélioration avec volumes :
+
+
+
+```
+version: "3.8"
+
+networks:
+  exquisite:
+    driver: overlay
+    driver_opts:
+      encrypted: ""
+
+services:
+  mongo:
+    image: mongo:3.3.8
+    networks:
+      - exquisite
+    volumes:
+      - mongo_data:/data/db
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+  back:
+    image: vdemeester/exquisite-words-java:v1
+    networks:
+      - exquisite
+    deploy:
+      replicas: 3
+      resources:
+        limits:
+          memory: 64M
+        reservations:
+          memory: 64M
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    environment:
+      - MONGO_HOST=mongo
+      - MONGO_PORT=27017
+    depends_on:
+      - mongo
+
+  front:
+    image: vdemeester/exquisite-web:v1
+    ports:
+      - "800:80"
+    networks:
+      - exquisite
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - back
+
+volumes:
+  mongo_data:
+``` 
+``` 
+docker stack deploy -c docker-compose.yml exquisite_stack
+``` 
+
 ## Testing service web
 ```
 docker service create --replicas 10 --name web  -p 80:80 nginx
