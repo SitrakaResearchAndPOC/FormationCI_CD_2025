@@ -167,11 +167,139 @@ services:
       restart_policy:
         condition: on-failure   
 ```
+```
+docker-compose down --volumes --remove-orphans
+```
+```
+docker system prune -f
+```
+```
+docker stack deploy -c docker-compose.yml exquisite_stack
+```
 
-
+verifier etat du stack :
+```
+docker stack ps exquisite-app
+```
+Vérifier les logs :
+```
+docker service logs exquisite-app_<service-name>
+```
+Suprrimer stack : 
+```
+docker stack rm exquisite-app
+```
 
 * separation en mutiple fichiers
 
+```
+# network.yml
+version: "3.8"
+
+networks:
+  exquisite:
+    driver: overlay
+    driver_opts:
+      encrypted: ""
+```
+
+```
+docker stack deploy -c network.yml exquisite-network
+```
+
+```
+# mongo.yml
+version: "3.8"
+
+services:
+  mongo:
+    image: mongo:3.3.8
+    networks:
+      - exquisite
+#    deploy:
+#      placement:
+#        constraints: [node.role == worker]  # Optionnel, pour isoler MongoDB sur des nœuds spécifiques
+```
+
+```
+docker stack deploy -c mongo.yml exquisite-mongo
+```
+
+
+```
+# back.yml
+version: "3.8"
+
+services:
+  back:
+    image: vdemeester/exquisite-words-java:v1
+    networks:
+      - exquisite
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/exquisite  # Connexion à MongoDB
+    depends_on:
+      - mongo  # Le backend dépend de MongoDB
+    deploy:
+      replicas: 10
+      resources:
+        limits:
+          memory: 64M
+        reservations:
+          memory: 64M
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+
+networks:
+  exquisite:
+    external: true
+```
+
+```
+docker stack deploy -c back.yml exquisite-back
+```
+
+
+```
+# front.yml
+version: "3.8"
+
+services:
+  front:
+    image: vdemeester/exquisite-web:v1
+    ports:
+      - "800:80"
+    networks:
+      - exquisite
+    depends_on:
+      - back  # Le frontend dépend du backend
+    deploy:
+      replicas: 10
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+
+networks:
+  exquisite:
+    external: true
+```
+```
+docker stack deploy -c front.yml exquisite-front
+```
+
+```
+docker stack ps exquisite-mongo
+```
+```
+docker stack ps exquisite-back
+```
+```
+docker stack ps exquisite-front
+```
 
 * Amélioration avec volumes :
 
