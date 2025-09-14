@@ -126,23 +126,20 @@ services:
     image: mongo:3.3.8
     networks:
       - exquisite
-    deploy:
-      placement:
-        constraints: [node.role == worker]
-      restart_policy:
-        condition: on-failure
+#    deploy:
+#      placement:
+#        constraints: [node.role == worker]  # Optionnel, pour isoler mongo
 
   back:
-    image: vdemeester/exquisite-words-java:v1
+    image: vdemeester/exquisite-words-java:v1  # Dernière version de votre image backend
     networks:
       - exquisite
-    depends_on:
-      - mongo
     environment:
-      - MONGO_HOST=mongo
-      - MONGO_PORT=27017
+      - MONGO_URI=mongodb://mongo:27017/exquisite  # Connexion à MongoDB
+    depends_on:
+      - mongo  # Le backend dépend de MongoDB
     deploy:
-      replicas: 1
+      replicas: 10
       resources:
         limits:
           memory: 64M
@@ -155,22 +152,25 @@ services:
         condition: on-failure
 
   front:
-    image: vdemeester/exquisite-web:v1
+    image: vdemeester/exquisite-web:v1  # Dernière version de votre image frontend
     ports:
       - "800:80"
     networks:
       - exquisite
     depends_on:
-      - back
+      - back  # Le frontend dépend du backend
     deploy:
-      replicas: 1
+      replicas: 10
       update_config:
         parallelism: 2
         delay: 10s
       restart_policy:
-        condition: on-failure
+        condition: on-failure   
 ```
 
+
+
+* separation en mutiple fichiers
 
 
 * Amélioration avec volumes :
