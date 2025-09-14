@@ -206,6 +206,10 @@ networks:
 ```
 docker stack deploy -c network.yml exquisite-network
 ```
+OU
+```
+docker stack deploy -c --detach=true network.yml exquisite-network
+```
 
 ```
 # mongo.yml
@@ -222,7 +226,7 @@ services:
 ```
 
 ```
-docker stack deploy -c mongo.yml exquisite-mongo
+docker stack deploy --detach=true -c mongo.yml exquisite-mongo
 ```
 
 
@@ -258,7 +262,7 @@ networks:
 ```
 
 ```
-docker stack deploy -c back.yml exquisite-back
+docker stack deploy --detach=true -c back.yml exquisite-back
 ```
 
 
@@ -288,7 +292,7 @@ networks:
     external: true
 ```
 ```
-docker stack deploy -c front.yml exquisite-front
+docker stack deploy --detach=true -c front.yml exquisite-front
 ```
 
 ```
