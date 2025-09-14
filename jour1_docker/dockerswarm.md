@@ -193,23 +193,13 @@ docker stack rm exquisite-app
 * separation en mutiple fichiers
 
 ```
-# network.yml
-version: "3.8"
-
-networks:
-  exquisite:
-    driver: overlay
-    driver_opts:
-      encrypted: ""
+docker swarm init
 ```
 
 ```
-docker stack deploy -c network.yml exquisite-network
+docker network create --driver overlay --opt encrypted exquisite
 ```
-OU
-```
-docker stack deploy -c --detach=true network.yml exquisite-network
-```
+Le reseau devrait crée via docker network ou via yml mais au moins avec un service
 
 ```
 # mongo.yml
